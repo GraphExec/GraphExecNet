@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace GraphExec
 {
@@ -11,47 +10,12 @@ namespace GraphExec
         {
             Args.IsNotNull(() => predicate);
 
-            var memberSelector = predicate.Body as MemberExpression;
-            ConstantExpression constantSelector = null;
-            bool? result = null;
+            var expressionResult = ExpressionHelper.Process(predicate);
+            Vars.HandleNull(expressionResult, ExpressionHelper.HandleNull);
 
-            if (memberSelector == null)
+            if (expressionResult.Value)
             {
-                if (predicate.Body is ConstantExpression)
-                {
-                    constantSelector = predicate.Body as ConstantExpression;
-                    result = constantSelector.Value as bool?;
-                }
-                else
-                {
-                    var func = predicate.Compile();
-                    result = func.Invoke() as bool?;
-                }
-            }
-            else
-            {
-                constantSelector = memberSelector.Expression as ConstantExpression;
-                result = (memberSelector.Member as FieldInfo).GetValue(constantSelector.Value) as bool?;
-            }
-
-            var isTrue = result != null && result.HasValue && result.Value;
-            if (isTrue)
-            {
-                string name = string.Empty;
-                if (memberSelector == null)
-                {
-                    name = predicate.Body.ToString();
-                }
-                else
-                {
-                    name = memberSelector.Member.Name;
-                }
-
-                var instance = Activator.CreateInstance(typeof(TException), new object[] { message ?? "An error condition was met: {0}", name });
-
-                var exception = (TException)instance;
-
-                throw exception;
+                throw (TException)Activator.CreateInstance(typeof(TException), new object[] { message ?? "An error condition was met: {0}", expressionResult.Description });
             }
         }
     }

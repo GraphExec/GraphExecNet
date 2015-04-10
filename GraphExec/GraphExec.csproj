@@ -45,6 +45,10 @@
     <Compile Include="BaseNode.cs" />
     <Compile Include="BaseNodeInfo.cs" />
     <Compile Include="ContainerSetup.cs" />
+    <Compile Include="ExpressionHelper.cs" />
+    <Compile Include="ExpressionProcessResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IBehaviorNode.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -56,6 +60,7 @@
     <Compile Include="ILinkedNode.cs" />
     <Compile Include="INode.cs" />
     <Compile Include="INodeInfo.cs" />
+    <Compile Include="InternalGraphExecException.cs" />
     <Compile Include="IoC.cs" />
     <Compile Include="NDepend\AllowNullVarsAttribute.cs" />
     <Compile Include="NDepend\ThrowsExceptionAttribute.cs" />
@@ -81,7 +86,9 @@
     <Compile Include="Security\IUser.cs" />
     <Compile Include="Security\PermissionCheckResult.cs" />
     <Compile Include="Security\SecurityCore.cs" />
-    <Compile Include="Throw.cs" />
+    <Compile Include="Throw.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Vars.cs" />
   </ItemGroup>
   <ItemGroup>

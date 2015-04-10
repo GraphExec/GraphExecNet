@@ -187,3 +187,11 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+GraphExec/packages/Autofac.3.5.2/Autofac.3.5.2.nupkg
+GraphExec/packages/Autofac.3.5.2/lib/net40/Autofac.dll
+GraphExec/packages/Autofac.3.5.2/lib/net40/Autofac.xml
+GraphExec/packages/Autofac.3.5.2/lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Autofac.xml
+GraphExec/packages/Autofac.3.5.2/lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Autofac.dll
+GraphExec/packages/repositories.config
+GraphExec/NDependOut/NDependAnalysisResult_GraphExec_2015Apr10_02h26.ndar
+GraphExec/NDependOut/InfoWarnings.xml

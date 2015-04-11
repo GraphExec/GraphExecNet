@@ -16,7 +16,9 @@
   <Report Kind="0" SectionsEnabled="45055" XslPath="" Flags="64512" />
   <BuildComparisonSetting ProjectMode="DontCompare" BuildMode="MostRecentAnalysisResultAvailable" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="1" FocusOnRecentRulesViolations="False" />
   <BaselineInUISetting ProjectMode="CurrentProject" BuildMode="NDaysAgoAnalysisResult" ProjectFileToCompareWith="J:\Code\VS2013\GraphExec\GraphExecNet\GraphExec\GraphExec.ndproj" BuildFileToCompareWith="J:\Code\VS2013\GraphExec\GraphExecNet\GraphExec\NDependOut\NDependAnalysisResult_GraphExec_2015Apr10_02h26.ndar" NDaysAgo="1" FocusOnRecentRulesViolations="False" />
-  <CoverageFiles UncoverableAttribute="" />
+  <CoverageFiles UncoverableAttribute="">
+    <CoverageFile MergeMode="Or">J:\Code\VS2013\GraphExec\GraphExecNet\GraphExec\Current.coveragexml</CoverageFile>
+  </CoverageFiles>
   <TrendMetrics UseCustomLog="False" LogRecurrence="3" LogLabel="2" UseCustomDir="False" CustomDir="">
     <Chart Name="Lines of Code" ShowInReport="True">
       <Serie MetricName="# Lines of Code" MetricUnit="Loc" Color="#FF00BFFF" ChartType="Line" ScaleExp="0" />

@@ -30,11 +30,15 @@ namespace GraphExec
             }
         }
 
-        [ThrowsException]
+        [ThrowsException, AllowNullVars]
         public static void IsNotNull<TObject>(Expression<Func<TObject>> selector)
         {
             var expressionResult = ExpressionHelper.Process(selector);
-            Vars.HandleNull(expressionResult, ExpressionHelper.HandleNull);
+
+            if (expressionResult == null)
+            {
+                ExpressionHelper.HandleNull();
+            }
 
             if (expressionResult.Value == null)
             {

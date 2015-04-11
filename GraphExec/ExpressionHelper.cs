@@ -8,11 +8,11 @@ namespace GraphExec
     internal static class ExpressionHelper
     {
         [AllowNullVars]
-        internal static ExpressionProcessResult<object> Process<T>(Expression<Func<T>> expression)
+        internal static ExpressionProcessResult<object> Process<T>(Expression<Func<T>> selector)
         {
-            if (expression == null) throw new ArgumentNullException("selector");
+            if (selector == null) throw new ArgumentNullException("selector");
 
-            var memberSelector = expression.Body as MemberExpression;
+            var memberSelector = selector.Body as MemberExpression;
             if (memberSelector == null) throw new ArgumentNullException("memberSelector");
 
             var constantSelector = memberSelector.Expression as ConstantExpression;
@@ -32,35 +32,39 @@ namespace GraphExec
         }
 
         [AllowNullVars]
-        internal static ExpressionProcessResult<bool> Process(Expression<Func<bool>> expression)
+        internal static ExpressionProcessResult<bool> Process(Expression<Func<bool>> selector)
         {
-            var memberSelector = expression.Body as MemberExpression;
+            if (selector == null) throw new ArgumentNullException("selector");
+
+            var memberSelector = selector.Body as MemberExpression;
             ConstantExpression constantSelector = null;
+            FieldInfo field = null;
             bool? result = null;
             var name = string.Empty;
 
             if (memberSelector == null)
             {
-                if (expression.Body is ConstantExpression)
+                if (selector.Body is ConstantExpression)
                 {
-                    constantSelector = expression.Body as ConstantExpression;
+                    constantSelector = selector.Body as ConstantExpression;
                     result = constantSelector.Value as bool?;
                 }
                 else
                 {
-                    var func = expression.Compile();
+                    var func = selector.Compile();
                     result = func.Invoke() as bool?;
                 }
             }
             else
             {
                 constantSelector = memberSelector.Expression as ConstantExpression;
-                result = (memberSelector.Member as FieldInfo).GetValue(constantSelector.Value) as bool?;
+                field = memberSelector.Member as FieldInfo;
+                result = field.GetValue(constantSelector.Value) as bool?;
             }
 
             if (memberSelector == null)
             {
-                name = expression.Body.ToString();
+                name = selector.Body.ToString();
             }
             else
             {
@@ -71,7 +75,7 @@ namespace GraphExec
             {
                 Member = memberSelector,
                 Constant = constantSelector,
-                Field = memberSelector.Member as FieldInfo,
+                Field = field,
                 Description = name,
                 Value = result != null && result.HasValue && result.Value
             };

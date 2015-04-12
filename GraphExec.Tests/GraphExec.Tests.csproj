@@ -56,7 +56,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ArgsTest.cs" />
+    <Compile Include="BehaviorNodeTest.cs" />
     <Compile Include="Framework\BaseTestClass.cs" />
+    <Compile Include="Math\AddOperationInfo.cs" />
+    <Compile Include="Math\DivideOperationInfo.cs" />
+    <Compile Include="Math\MathNode.cs" />
+    <Compile Include="Math\MultiplyOperationInfo.cs" />
+    <Compile Include="Math\OperandInfo.cs" />
+    <Compile Include="Math\OperationInfo.cs" />
+    <Compile Include="Math\OperationProvider.cs" />
+    <Compile Include="Math\Operations.cs" />
+    <Compile Include="Math\SubtractOperationInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VarsTest.cs" />
   </ItemGroup>
@@ -68,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="User\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

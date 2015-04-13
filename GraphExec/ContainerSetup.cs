@@ -1,14 +1,14 @@
-﻿using Autofac;
-using GraphExec.Security;
+﻿using GraphExec.Security;
 
 namespace GraphExec
 {
-    internal class ContainerSetup
+    internal static class ContainerSetup
     {
-        internal IContainer Setup()
+        internal static IContainer Setup()
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterInstance<SecurityCore>(new SecurityCore());
+            var builder = new DependencyBuilder();
+            builder.Register<SecurityCore>(new SecurityCore());
+            builder.Register<IEventAggregator>(new EventAggregator());
 
             return builder.Build();
         }

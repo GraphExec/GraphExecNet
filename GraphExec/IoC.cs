@@ -1,9 +1,13 @@
-﻿using Autofac;
-
+﻿
 namespace GraphExec
 {
     internal static class IoC
     {
-        internal static IContainer Container = (new ContainerSetup()).Setup();
+        static IoC()
+        {
+            IoC.Container = ContainerSetup.Setup();
+        }
+
+        internal static IContainer Container { get; private set; }
     }
 }

@@ -1,33 +1,35 @@
-﻿using Autofac;
-using GraphExec.NDepend;
+﻿using GraphExec.NDepend;
 using GraphExec.Security;
 using System;
 
 namespace GraphExec
 {
-    public abstract class BaseNode<T, TCheck, TCheckResult> : INode<T>
+    public abstract class BaseNode<T, TCheck, TCheckResult> : INode<T>, IHandle<NodeExecutionState>
         where TCheckResult : PermissionCheckResult, new()
         where TCheck : BasePermissionCheck<TCheckResult>, new()
     {
-        private bool m_executionCompleted;
-        public bool ExecutionCompleted
+        protected BaseNode()
         {
-            [ThrowsException]
-            get
-            {
-                return this.m_executionCompleted;
-            }
-            protected set
-            {
-                this.m_executionCompleted = value;
-            }
+            this.EventAggregator.Sub(this);
+
+            this.EventAggregator.Pub(NodeExecutionState.Initialized);
         }
+
+        public NodeExecutionState ExecutionState { get; private set; }
 
         public T Value { get; set; }
 
         public INode Head { get; set; }
 
         public TCheck PermissionCheck { get; set; }
+
+        public IEventAggregator EventAggregator
+        {
+            get
+            {
+                return IoC.Container.Resolve<IEventAggregator>();
+            }
+        }
 
         public string Name
         {
@@ -36,6 +38,11 @@ namespace GraphExec
             {
                 return this.GetType().Name;
             }
+        }
+
+        public void OnHandle(NodeExecutionState evt)
+        {
+            this.ExecutionState = evt;
         }
 
         [ThrowsException]
@@ -66,15 +73,21 @@ namespace GraphExec
         [ThrowsException]
         public TCheckResult Check()
         {
+            this.EventAggregator.Pub(NodeExecutionState.CheckingSecurity);
+
             Throw.Exception<NullReferenceException>(() => this.PermissionCheck == null);
 
             var result = this.SetCheckResult();
 
             this.SetSecurity(result);
 
-            if (result != null || !result.AllowAction)
+            if (result == null || !result.AllowAction)
             {
-                this.ExecutionCompleted = false;
+                this.EventAggregator.Pub(NodeExecutionState.SecurityFailed);
+            }
+            else
+            {
+                this.EventAggregator.Pub(NodeExecutionState.SecuritySuccessful);
             }
 
             return result;
@@ -83,19 +96,23 @@ namespace GraphExec
         [ThrowsException]
         public virtual void Execute()
         {
-            if (!this.ExecutionCompleted)
+            if (this.ExecutionState == NodeExecutionState.Initialized)
             {
+                this.EventAggregator.Pub(NodeExecutionState.Executing);
+
                 var result = this.Check();
 
                 if (result.AllowAction)
                 {
                     if (this.Head != null)
                     {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+
                         this.Head.Execute();
                     }
-
-                    this.ExecutionCompleted = true;
                 }
+
+                this.EventAggregator.Pub(NodeExecutionState.Executed);
             }
         }
     }

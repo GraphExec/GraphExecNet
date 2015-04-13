@@ -12,29 +12,37 @@ namespace GraphExec
 
         public override void Execute()
         {
-            if (!this.ExecutionCompleted)
+            if (this.ExecutionState == NodeExecutionState.Initialized)
             {
+                this.EventAggregator.Pub(NodeExecutionState.Executing);
+
                 var result = this.Check();
 
                 if (result.AllowAction)
                 {
                     if (this.Head != null)
                     {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+
                         this.Head.Execute();
                     }
 
                     if (this.Parent != null)
                     {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
+
                         this.Parent.Execute();
                     }
 
                     if (this.Child != null)
                     {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
+
                         this.Child.Execute();
                     }
-
-                    this.ExecutionCompleted = true;
                 }
+
+                this.EventAggregator.Pub(NodeExecutionState.Executed);
             }
         }
     }
@@ -50,29 +58,37 @@ namespace GraphExec
 
         public override void Execute()
         {
-            if (!this.ExecutionCompleted)
+            if (this.ExecutionState == NodeExecutionState.Initialized)
             {
+                this.EventAggregator.Pub(NodeExecutionState.Executing);
+
                 var result = this.Check();
 
                 if (result.AllowAction)
                 {
                     if (this.Head != null)
                     {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+
                         this.Head.Execute();
                     }
 
                     if (this.Parent != null)
                     {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
+
                         this.Parent.Execute();
                     }
 
                     if (this.Child != null)
                     {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
+
                         this.Child.Execute();
                     }
-
-                    this.ExecutionCompleted = true;
                 }
+
+                this.EventAggregator.Pub(NodeExecutionState.Executed);
             }
         }
     }

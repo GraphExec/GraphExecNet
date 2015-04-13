@@ -16,6 +16,8 @@ namespace GraphExec
         where TProviderInfo : BaseProviderInfo, new()
         where TProvider : BaseCompositeProvider<TResult, TData, TProviderInfo>
     {
+        public TProviderInfo ProviderInfo { get; set; }
+
         public TProvider Provider { get; set; }
     }
 
@@ -26,7 +28,11 @@ namespace GraphExec
         where TProviderInfo : BaseProviderInfo, new()
         where TProvider : BaseCompositeProvider<TResult, TData, TBehaviorInfo, TProviderInfo>
     {
+        public TProviderInfo ProviderInfo { get; set; }
+
         public TProvider Provider { get; set; }
+
+        public TBehaviorInfo BehaviorInfo { get; set; }
     }
 
 }

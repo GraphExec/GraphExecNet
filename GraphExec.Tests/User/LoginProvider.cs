@@ -9,7 +9,7 @@ namespace GraphExec.Tests.User
             this.Info = info;
         }
 
-        protected LoginInfo Info { get; set; }
+        private LoginInfo Info { get; set; }
 
         protected override LoginUser Func()
         {

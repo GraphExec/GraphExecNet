@@ -19,7 +19,7 @@ namespace GraphExec.Tests.Math
 
         public override void Execute()
         {
-            if (!this.ExecutionCompleted)
+            if (this.ExecutionState != NodeExecutionState.SecurityFailed)
             {
                 var checkResult = this.Check();
 

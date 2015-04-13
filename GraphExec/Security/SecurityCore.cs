@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GraphExec.Security
 {
-    internal class SecurityCore
+    internal sealed class SecurityCore
     {
         internal SecurityCore()
         {
@@ -55,7 +55,7 @@ namespace GraphExec.Security
             return null;
         }
 
-        internal class PermissionRegistryItem
+        internal sealed class PermissionRegistryItem
         {
             internal void Set<TPermissionCheck, TResult>(TPermissionCheck permissionCheck)
                 where TResult : PermissionCheckResult, new()

@@ -18,17 +18,48 @@ namespace GraphExec
 
         public override void Execute()
         {
-            base.Execute();
-
-            this.ExecutionCompleted = false;
-
-            var func = this.Provider.GetBehavior();
-
-            if (func != null)
+            if (this.ExecutionState == NodeExecutionState.Initialized)
             {
-                var result = func();
+                this.EventAggregator.Pub(NodeExecutionState.Executing);
 
-                this.Value = result;
+                var checkResult = this.Check();
+
+                if (checkResult.AllowAction)
+                {
+                    if (this.Head != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+
+                        this.Head.Execute();
+                    }
+
+                    if (this.Parent != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
+
+                        this.Parent.Execute();
+                    }
+
+                    this.EventAggregator.Pub(NodeExecutionState.ExecutingGetBehavior);
+
+                    var func = this.Provider.GetBehavior();
+
+                    if (func != null)
+                    {
+                        var result = func();
+
+                        this.Value = result;
+                    }
+
+                    if (this.Child != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
+
+                        this.Child.Execute();
+                    }
+                }
+
+                this.EventAggregator.Pub(NodeExecutionState.Executed);
             }
         }
     }
@@ -53,17 +84,48 @@ namespace GraphExec
 
         public override void Execute()
         {
-            base.Execute();
-
-            this.ExecutionCompleted = false;
-
-            var func = this.Provider.GetBehavior(this.ProviderInfo);
-
-            if (func != null)
+            if (this.ExecutionState == NodeExecutionState.Initialized)
             {
-                var result = func();
+                this.EventAggregator.Pub(NodeExecutionState.Executing);
 
-                this.Value = result;
+                var checkResult = this.Check();
+
+                if (checkResult.AllowAction)
+                {
+                    if (this.Head != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+
+                        this.Head.Execute();
+                    }
+
+                    if (this.Parent != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
+
+                        this.Parent.Execute();
+                    }
+
+                    this.EventAggregator.Pub(NodeExecutionState.ExecutingGetBehavior);
+
+                    var func = this.Provider.GetBehavior(this.ProviderInfo);
+
+                    if (func != null)
+                    {
+                        var result = func();
+
+                        this.Value = result;
+                    }
+
+                    if (this.Child != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
+
+                        this.Child.Execute();
+                    }
+                }
+
+                this.EventAggregator.Pub(NodeExecutionState.Executed);
             }
         }
     }
@@ -83,17 +145,48 @@ namespace GraphExec
 
         public override void Execute()
         {
-            base.Execute();
-
-            this.ExecutionCompleted = false;
-
-            var func = this.Provider.GetBehavior(this.ProviderInfo);
-
-            if (func != null)
+            if (this.ExecutionState == NodeExecutionState.Initialized)
             {
-                var result = func(this.BehaviorInfo);
+                this.EventAggregator.Pub(NodeExecutionState.Executing);
 
-                this.Value = result;
+                var checkResult = this.Check();
+
+                if (checkResult.AllowAction)
+                {
+                    if (this.Head != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+
+                        this.Head.Execute();
+                    }
+
+                    if (this.Parent != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
+
+                        this.Parent.Execute();
+                    }
+
+                    this.EventAggregator.Pub(NodeExecutionState.ExecutingGetBehavior);
+
+                    var func = this.Provider.GetBehavior(this.ProviderInfo);
+
+                    if (func != null)
+                    {
+                        var result = func(this.BehaviorInfo);
+
+                        this.Value = result;
+                    }
+
+                    if (this.Child != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
+
+                        this.Child.Execute();
+                    }
+                }
+
+                this.EventAggregator.Pub(NodeExecutionState.Executed);
             }
         }
     }
@@ -114,17 +207,48 @@ namespace GraphExec
 
         public override void Execute()
         {
-            base.Execute();
-
-            this.ExecutionCompleted = false;
-
-            var func = this.Provider.GetBehavior(this.ProviderInfo);
-
-            if (func != null)
+            if (this.ExecutionState == NodeExecutionState.Initialized)
             {
-                var result = func(this.BehaviorInfo);
+                this.EventAggregator.Pub(NodeExecutionState.Executing);
 
-                this.Value = result;
+                var checkResult = this.Check();
+
+                if (checkResult.AllowAction)
+                {
+                    if (this.Head != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+
+                        this.Head.Execute();
+                    }
+
+                    if (this.Parent != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
+
+                        this.Parent.Execute();
+                    }
+
+                    this.EventAggregator.Pub(NodeExecutionState.ExecutingGetBehavior);
+
+                    var func = this.Provider.GetBehavior(this.ProviderInfo);
+
+                    if (func != null)
+                    {
+                        var result = func(this.BehaviorInfo);
+
+                        this.Value = result;
+                    }
+
+                    if (this.Child != null)
+                    {
+                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
+
+                        this.Child.Execute();
+                    }
+                }
+
+                this.EventAggregator.Pub(NodeExecutionState.Executed);
             }
         }
     }

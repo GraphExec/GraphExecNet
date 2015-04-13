@@ -4,7 +4,12 @@ namespace GraphExec
 {
     public abstract class BaseCompositeProvider<TResult, TData> : ICompositeProvider<TResult, TData>
     {
-        public abstract Func<TResult> GetBehavior();
+        public virtual Func<TResult> GetBehavior()
+        {
+            return this.Func;
+        }
+
+        protected abstract TResult Func();
 
         public abstract TData GetData();
     }
@@ -12,7 +17,12 @@ namespace GraphExec
     public abstract class BaseCompositeProvider<TResult, TData, TProviderInfo> : ICompositeProvider<TResult, TData, TProviderInfo>
         where TProviderInfo : BaseProviderInfo, new()
     {
-        public abstract Func<TResult> GetBehavior(TProviderInfo info);
+        public virtual Func<TResult> GetBehavior(TProviderInfo info)
+        {
+            return this.Func;
+        }
+
+        protected abstract TResult Func();
 
         public abstract TData GetData(TProviderInfo info);
     }
@@ -21,7 +31,12 @@ namespace GraphExec
         where TBehaviorInfo : BaseBehaviorInfo, new()
         where TProviderInfo : BaseProviderInfo, new()
     {
-        public abstract Func<TBehaviorInfo, TResult> GetBehavior(TProviderInfo info);
+        public virtual Func<TBehaviorInfo, TResult> GetBehavior(TProviderInfo info)
+        {
+            return this.Func;
+        }
+
+        protected abstract TResult Func(TBehaviorInfo info);
 
         public abstract TData GetData(TProviderInfo info);
     }

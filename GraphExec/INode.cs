@@ -4,7 +4,7 @@ namespace GraphExec
     public interface INode
     {
         INode Head { get; set; }
-        bool ExecutionCompleted { get; }
+        NodeExecutionState ExecutionState { get; }
         void Execute();
     }
 

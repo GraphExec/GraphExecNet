@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace GraphExec
 {
-    internal class ExpressionProcessResult<T>
+    internal sealed class ExpressionProcessResult<T>
     {
         internal MemberExpression Member { get; set; }
         internal ConstantExpression Constant { get; set; }

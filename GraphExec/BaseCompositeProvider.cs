@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GraphExec.Providers
+namespace GraphExec
 {
     public abstract class BaseCompositeProvider<TResult, TData> : ICompositeProvider<TResult, TData>
     {

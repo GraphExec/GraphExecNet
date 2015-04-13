@@ -1,5 +1,4 @@
-﻿using GraphExec.Providers;
-
+﻿
 namespace GraphExec.Security
 {
     public abstract class BasePermissionCheck<TResult> : BaseBehaviorProvider<TResult>

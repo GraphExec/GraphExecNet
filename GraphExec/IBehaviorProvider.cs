@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GraphExec.Providers
+namespace GraphExec
 {
 
     public interface IBehaviorProvider : IProvider

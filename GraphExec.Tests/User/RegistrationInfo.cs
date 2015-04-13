@@ -1,5 +1,4 @@
-﻿using GraphExec.Providers;
-
+﻿
 namespace GraphExec.Tests.User
 {
     public sealed class RegistrationInfo : BaseProviderInfo

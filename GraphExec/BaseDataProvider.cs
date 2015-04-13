@@ -1,5 +1,5 @@
 ﻿
-namespace GraphExec.Providers
+namespace GraphExec
 {
     public abstract class BaseDataProvider<TData> : IDataProvider<TData>
     {

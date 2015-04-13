@@ -1,5 +1,4 @@
-﻿using GraphExec.Providers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace GraphExec.Tests.User
 {

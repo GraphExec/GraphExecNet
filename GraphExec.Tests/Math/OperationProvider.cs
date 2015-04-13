@@ -1,5 +1,4 @@
-﻿using GraphExec.Providers;
-using System;
+﻿using System;
 
 namespace GraphExec.Tests.Math
 {

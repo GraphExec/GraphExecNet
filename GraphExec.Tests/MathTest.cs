@@ -5,33 +5,38 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace GraphExec.Tests
 {
     [TestClass]
-    public class BehaviorNodeTest : BaseTestClass
+    public class MathTest : BaseTestClass
     {
+        /// <summary>
+        /// BaseBehaviorNode_Default()
+        /// 
+        /// Test the BehaviorNode and BehaviorProvider using an implementation of basic arithmetic
+        /// </summary>
         [TestMethod]
-        public void BaseBehaviorNode_Default()
+        public void Math_Default()
         {
             // Arrange 1 + 2 - 3 * 4 / 2
 
-            var head = new MathNode<OperationProvider<MultiplyOperationInfo>, MultiplyOperationInfo>(new OperandInfo()
+            var head = new MathNode<MultiplyProvider, MultiplyOperationInfo>(new OperandInfo()
             {
                 LHS = 3,
                 RHS = 4
             });
 
-            var parent = new MathNode<OperationProvider<DivideOperationInfo>, DivideOperationInfo>(new OperandInfo()
+            var parent = new MathNode<DivideProvider, DivideOperationInfo>(new OperandInfo()
             {
                 LHS = 0d, // Uses excecution value from Head
                 RHS = 2
             });
 
-            var child = new MathNode<OperationProvider<AddOperationInfo>, AddOperationInfo>(new OperandInfo()
+            var child = new MathNode<AddProvider, AddOperationInfo>(new OperandInfo()
             {
                 LHS = 1,
                 RHS = 2
             });
 
-            var formula = new MathNode<OperationProvider<SubtractOperationInfo>, SubtractOperationInfo>(new OperandInfo());
-            // formula info uses values from Parent/Child
+            var formula = new MathNode<SubtractProvider, SubtractOperationInfo>(new OperandInfo());
+            // Formula Info uses values from Parent/Child
             formula.Head = head;
             formula.Parent = parent;
             formula.Child = child;

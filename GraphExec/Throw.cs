@@ -15,7 +15,10 @@ namespace GraphExec
 
             if (expressionResult.Value)
             {
-                throw (TException)Activator.CreateInstance(typeof(TException), new object[] { message ?? "An error condition was met: {0}", expressionResult.Description });
+                var msg = string.Format(message ?? "An error condition was met: {0}", expressionResult.Description);
+                var ex = (TException)Activator.CreateInstance(typeof(TException), new object[] { msg });
+
+                throw ex;
             }
         }
     }

@@ -17,9 +17,9 @@ namespace GraphExec.Tests.Math
             this.PermissionCheck = new AnonymousPermissionCheck();
         }
 
-        public override void Execute()
+        protected override void ExecuteCore()
         {
-            if (this.ExecutionState != NodeExecutionState.SecurityFailed)
+            if (this.ExecutionState == NodeExecutionState.Initialized)
             {
                 var checkResult = this.Check();
 

@@ -4,12 +4,14 @@ using System;
 
 namespace GraphExec
 {
-    public abstract class BaseNode<T, TCheck, TCheckResult> : INode<T>, IHandle<NodeExecutionState>
+    public abstract class BaseNode<T, TCheck, TCheckResult> : EventScope<NodeExecutionState>, INode<T>
         where TCheckResult : PermissionCheckResult, new()
         where TCheck : BasePermissionCheck<TCheckResult>, new()
     {
         protected BaseNode()
         {
+            this.InitializeScope();
+
             this.EventAggregator.Sub(this);
 
             this.EventAggregator.Pub(NodeExecutionState.Initialized);
@@ -31,6 +33,14 @@ namespace GraphExec
             }
         }
 
+        public IEventScopeManager ScopeManager
+        {
+            get
+            {
+                return (this.EventAggregator as EventScopeManager);
+            }
+        }
+
         public string Name
         {
             [ThrowsException]
@@ -40,9 +50,15 @@ namespace GraphExec
             }
         }
 
-        public void OnHandle(NodeExecutionState evt)
+        public override void OnHandle(NodeExecutionState evt)
         {
             this.ExecutionState = evt;
+        }
+
+        private void InitializeScope()
+        {
+            this.ScopeLevel = EventLevel.Local;
+            this.ScopeManager.BeginScope(this);
         }
 
         [ThrowsException]
@@ -93,8 +109,15 @@ namespace GraphExec
             return result;
         }
 
+        public void Execute()
+        {
+            this.InitializeScope();
+            this.ExecuteCore();
+            this.ScopeManager.EndScope(this);
+        }
+
         [ThrowsException]
-        public virtual void Execute()
+        protected virtual void ExecuteCore()
         {
             if (this.ExecutionState == NodeExecutionState.Initialized)
             {

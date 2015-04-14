@@ -10,7 +10,7 @@ namespace GraphExec
 
         public INode Child { get; set; }
 
-        public override void Execute()
+        protected override void ExecuteCore()
         {
             if (this.ExecutionState == NodeExecutionState.Initialized)
             {
@@ -56,7 +56,7 @@ namespace GraphExec
 
         public INode Child { get; set; }
 
-        public override void Execute()
+        protected override void ExecuteCore()
         {
             if (this.ExecutionState == NodeExecutionState.Initialized)
             {

@@ -40,6 +40,7 @@
     <Compile Include="BaseBehaviorNode.cs" />
     <Compile Include="BaseCompositeNode.cs" />
     <Compile Include="BaseDataNode.cs" />
+    <Compile Include="BaseEventAggregator.cs" />
     <Compile Include="BaseExceptionHandler.cs" />
     <Compile Include="BaseLinkedNode.cs" />
     <Compile Include="BaseNode.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="DependencyBuilder.cs" />
     <Compile Include="DependencyContainer.cs" />
     <Compile Include="EventAggregator.cs" />
+    <Compile Include="EventScope.cs" />
     <Compile Include="ExpressionHelper.cs" />
     <Compile Include="ExpressionProcessResult.cs">
       <SubType>Code</SubType>
@@ -66,8 +68,11 @@
     <Compile Include="ILinkedNode.cs" />
     <Compile Include="INode.cs" />
     <Compile Include="INodeInfo.cs" />
+    <Compile Include="InternalEventAggregator.cs" />
     <Compile Include="InternalGraphExecException.cs" />
     <Compile Include="IoC.cs" />
+    <Compile Include="IScope.cs" />
+    <Compile Include="IScopeManager.cs" />
     <Compile Include="NDepend\AllowNullVarsAttribute.cs" />
     <Compile Include="NDepend\ThrowsExceptionAttribute.cs" />
     <Compile Include="NodeExecutionState.cs" />
@@ -84,6 +89,8 @@
     <Compile Include="IDataProvider.cs" />
     <Compile Include="IProvider.cs" />
     <Compile Include="IProviderInfo.cs" />
+    <Compile Include="EventScopeManager.cs" />
+    <Compile Include="EventLevel.cs" />
     <Compile Include="Security\AllowAnonymousAttribute.cs" />
     <Compile Include="Security\AllowPermissionCheckResult.cs" />
     <Compile Include="Security\AnonymousPermissionCheck.cs">

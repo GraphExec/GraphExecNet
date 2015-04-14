@@ -9,7 +9,7 @@ namespace GraphExec
     {
         public TProvider Provider { get; set; }
 
-        public override void Execute()
+        protected override void ExecuteCore()
         {
             if (this.ExecutionState == NodeExecutionState.Initialized)
             {
@@ -61,7 +61,7 @@ namespace GraphExec
 
         public TProvider Provider { get; set; }
 
-        public override void Execute()
+        protected override void ExecuteCore()
         {
             if (this.ExecutionState == NodeExecutionState.Initialized)
             {
@@ -114,7 +114,7 @@ namespace GraphExec
 
         public TProvider Provider { get; set; }
 
-        public override void Execute()
+        protected override void ExecuteCore()
         {
             if (this.ExecutionState == NodeExecutionState.Initialized)
             {

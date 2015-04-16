@@ -2,11 +2,11 @@
 
 namespace GraphExec.Tests.Math
 {
-    public class MathNode<TProvider, TOperationInfo> : BaseBehaviorNode<double, OperandInfo, TOperationInfo, TProvider, AnonymousPermissionCheck, AllowPermissionCheckResult>
+    public class BasicMathNode<TProvider, TOperationInfo> : BaseBehaviorNode<double, OperandInfo, TOperationInfo, TProvider, AnonymousPermissionCheck, AllowPermissionCheckResult>
         where TOperationInfo : OperationInfo, new()
         where TProvider : OperationProvider<TOperationInfo>, new()
     {
-        public MathNode(OperandInfo info)
+        public BasicMathNode(OperandInfo info)
         {
             this.BehaviorInfo = info;
             this.ProviderInfo = new TOperationInfo();
@@ -25,23 +25,23 @@ namespace GraphExec.Tests.Math
 
                 if (checkResult.AllowAction)
                 {
-                    if (this.Head != null)
+                    if (this.Parent != null)
                     {
-                        this.Head.Execute();
+                        this.Parent.Execute();
 
-                        if (this.Parent != null)
+                        if (this.Right != null)
                         {
-                            var parent = (this.Parent as INode<double, OperandInfo>);
-                            parent.Info.LHS = (this.Head as INode<double>).Value;
-                            parent.Execute();
-                            this.Info.RHS = parent.Value;
+                            var right = (this.Right as INode<double, OperandInfo>);
+                            right.Info.LHS = (this.Parent as INode<double>).Value;
+                            right.Execute();
+                            this.Info.RHS = right.Value;
                         }
 
-                        if (this.Child != null)
+                        if (this.Left != null)
                         {
-                            var child = (this.Child as INode<double, OperandInfo>);
-                            child.Execute();
-                            this.Info.LHS = child.Value;
+                            var left = (this.Left as INode<double, OperandInfo>);
+                            left.Execute();
+                            this.Info.LHS = left.Value;
                         }
                     }
 

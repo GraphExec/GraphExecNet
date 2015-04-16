@@ -16,14 +16,18 @@ namespace GraphExec
         where TProviderInfo : class, IProviderInfo, new()
         where TProvider : class, IDataProvider<TData, TProviderInfo>
     {
+        TProviderInfo ProviderInfo { get; set; }
+
         TProvider Provider { get; set; }
     }
 
-    public interface IDataNode<TData, TNodeInfo, TProviderInfo, TProvider> : IDataNode<TData, TProviderInfo, TProvider>
+    public interface IDataNode<TData, TNodeInfo, TProviderInfo, TProvider> : IDataNode, ILinkedNode<TData, TNodeInfo>
         where TProviderInfo : class, IProviderInfo, new()
         where TNodeInfo : class, INodeInfo, new()
         where TProvider : class, IDataProvider<TData, TProviderInfo>
     {
-        TNodeInfo Info { get; set; }
+        TProviderInfo ProviderInfo { get; set; }
+
+        TProvider Provider { get; set; }
     }
 }

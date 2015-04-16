@@ -45,6 +45,7 @@
     <Compile Include="BaseLinkedNode.cs" />
     <Compile Include="BaseNode.cs" />
     <Compile Include="BaseNodeInfo.cs" />
+    <Compile Include="BehaviorNodeExtensions.cs" />
     <Compile Include="ContainerSetup.cs" />
     <Compile Include="DependencyBuilder.cs" />
     <Compile Include="DependencyContainer.cs" />
@@ -73,9 +74,11 @@
     <Compile Include="IoC.cs" />
     <Compile Include="IScope.cs" />
     <Compile Include="IScopeManager.cs" />
+    <Compile Include="LinkedNodeExtensions.cs" />
     <Compile Include="NDepend\AllowNullVarsAttribute.cs" />
     <Compile Include="NDepend\ThrowsExceptionAttribute.cs" />
     <Compile Include="NodeExecutionState.cs" />
+    <Compile Include="NodeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseBehaviorInfo.cs" />
     <Compile Include="BaseBehaviorProvider.cs" />

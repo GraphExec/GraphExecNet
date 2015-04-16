@@ -6,6 +6,7 @@ namespace GraphExec.Tests.Math
         Add,
         Subtract,
         Multiply,
-        Divide
+        Divide,
+        Power
     }
 }

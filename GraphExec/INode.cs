@@ -3,7 +3,7 @@ namespace GraphExec
 {
     public interface INode
     {
-        INode Head { get; set; }
+        INode Parent { get; set; }
         NodeExecutionState ExecutionState { get; }
         void Execute();
     }

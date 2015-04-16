@@ -3,19 +3,18 @@ namespace GraphExec
 {
     public interface ILinkedNode : INode
     {
-        INode Parent { get; set; }
-        INode Child { get; set; }
+        INode Left { get; set; }
+
+        INode Right { get; set; }
     }
 
-    public interface ILinkedNode<T> : ILinkedNode
+    public interface ILinkedNode<T> : ILinkedNode, INode<T>
     {
-        T Value { get; set; }
     }
 
-    public interface ILinkedNode<T, TNodeInfo> : ILinkedNode<T>
+    public interface ILinkedNode<T, TNodeInfo> : ILinkedNode<T>, INode<T, TNodeInfo>
         where TNodeInfo : class, INodeInfo, new()
     {
-        TNodeInfo Info { get; set; }
     }
 
 }

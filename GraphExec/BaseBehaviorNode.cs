@@ -26,19 +26,11 @@ namespace GraphExec
 
                 if (checkResult.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
+                    this.ExecuteRight();
 
                     this.EventAggregator.Pub(NodeExecutionState.ExecutingGetBehavior);
 
@@ -49,13 +41,6 @@ namespace GraphExec
                         var result = func();
 
                         this.Value = result;
-                    }
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
                     }
                 }
 
@@ -78,6 +63,12 @@ namespace GraphExec
         where TProviderInfo : BaseProviderInfo, new()
         where TProvider : BaseBehaviorProvider<TResult, TProviderInfo>
     {
+        public BaseBehaviorNode()
+            : base()
+        {
+            this.ProviderInfo = new TProviderInfo();
+        }
+
         public TProviderInfo ProviderInfo { get; set; }
 
         public TProvider Provider { get; set; }
@@ -92,19 +83,11 @@ namespace GraphExec
 
                 if (checkResult.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
+                    this.ExecuteRight();
 
                     this.EventAggregator.Pub(NodeExecutionState.ExecutingGetBehavior);
 
@@ -115,13 +98,6 @@ namespace GraphExec
                         var result = func();
 
                         this.Value = result;
-                    }
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
                     }
                 }
 
@@ -137,6 +113,14 @@ namespace GraphExec
         where TBehaviorInfo : BaseBehaviorInfo, new()
         where TProvider : BaseBehaviorProvider<TResult, TBehaviorInfo, TProviderInfo>
     {
+        public BaseBehaviorNode()
+            : base()
+        {
+            this.ProviderInfo = new TProviderInfo();
+
+            this.BehaviorInfo = new TBehaviorInfo();
+        }
+
         public TProviderInfo ProviderInfo { get; set; }
 
         public TProvider Provider { get; set; }
@@ -153,19 +137,11 @@ namespace GraphExec
 
                 if (checkResult.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
+                    this.ExecuteRight();
 
                     this.EventAggregator.Pub(NodeExecutionState.ExecutingGetBehavior);
 
@@ -176,13 +152,6 @@ namespace GraphExec
                         var result = func(this.BehaviorInfo);
 
                         this.Value = result;
-                    }
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
                     }
                 }
 
@@ -199,6 +168,14 @@ namespace GraphExec
         where TNodeInfo : BaseNodeInfo, new()
         where TProvider : BaseBehaviorProvider<TResult, TBehaviorInfo, TProviderInfo>
     {
+        public BaseBehaviorNode()
+            : base()
+        {
+            this.ProviderInfo = new TProviderInfo();
+
+            this.BehaviorInfo = new TBehaviorInfo();
+        }
+
         public TProviderInfo ProviderInfo { get; set; }
 
         public TProvider Provider { get; set; }
@@ -215,19 +192,11 @@ namespace GraphExec
 
                 if (checkResult.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
+                    this.ExecuteRight();
 
                     this.EventAggregator.Pub(NodeExecutionState.ExecutingGetBehavior);
 
@@ -238,13 +207,6 @@ namespace GraphExec
                         var result = func(this.BehaviorInfo);
 
                         this.Value = result;
-                    }
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
                     }
                 }
 

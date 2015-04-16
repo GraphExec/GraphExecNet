@@ -13,9 +13,9 @@ namespace GraphExec
         CheckingSecurity,
         SecurityFailed,
         SecuritySuccessful,
-        ExecutingHead,
         ExecutingParent,
-        ExecutingChild,
+        ExecutingLeft,
+        ExecutingRight,
         Executed
     }
 }

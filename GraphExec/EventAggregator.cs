@@ -85,35 +85,13 @@ namespace GraphExec
         }
 
         /// <summary>
-        /// Publish the specified event type passing the given event object to all Subscribers
+        /// Publish the specified event type passing the given event object to all relevant subscribers
         /// </summary>
         /// <typeparam name="TEventType">The type of event to publish</typeparam>
         /// <param name="evt">The event to publish. This object is passed to any subscribers</param>
         public void Pub<TEventType>(TEventType evt)
         {
             this.InternalAggregator.InternalPub(evt);
-        }
-
-        /// <summary>
-        /// Internal class to encapsulate event handler
-        /// </summary>
-        /// <typeparam name="TEventType">The type of event to be handled</typeparam>
-        /// <typeparam name="TScope">The scope type</typeparam>
-        private class RegistryItem<TEventType, TScope> : IHandle
-            where TScope : IScope<EventLevel, TScope>
-        {
-            internal RegistryItem(IHandle<TEventType> handler, TScope scope, bool handleOnce)
-            {
-                this.Handler = handler;
-                this.Scope = scope;
-                this.HandleOnce = handleOnce;
-            }
-
-            internal IHandle<TEventType> Handler { get; set; }
-
-            internal TScope Scope { get; set; }
-
-            internal bool HandleOnce { get; set; }
         }
     }
 }

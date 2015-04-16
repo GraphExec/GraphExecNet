@@ -28,18 +28,20 @@ namespace GraphExec
     {
         TProviderInfo ProviderInfo { get; set; }
 
+        TProvider Provider { get; set; }
+
         TBehaviorInfo BehaviorInfo { get; set; }
     }
 
-    public interface IBehaviorNode<TResult, TNodeInfo, TBehaviorInfo, TProviderInfo, TProvider> : IBehaviorNode, ILinkedNode<TResult>
+    public interface IBehaviorNode<TResult, TNodeInfo, TBehaviorInfo, TProviderInfo, TProvider> : IBehaviorNode, ILinkedNode<TResult, TNodeInfo>
         where TProviderInfo : class, IProviderInfo, new()
         where TBehaviorInfo : class, IBehaviorInfo, new()
         where TNodeInfo : class, INodeInfo, new()
         where TProvider : class, IBehaviorProvider<TResult, TBehaviorInfo, TProviderInfo>
     {
-        TNodeInfo Info { get; set; }
-
         TProviderInfo ProviderInfo { get; set; }
+
+        TProvider Provider { get; set; }
 
         TBehaviorInfo BehaviorInfo { get; set; }
     }

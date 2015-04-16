@@ -40,6 +40,11 @@ namespace GraphExec.Tests.Math
                         result = info.LHS / info.RHS;
                         break;
                     }
+                case Operations.Power:
+                    {
+                        result = System.Math.Pow(info.LHS, info.RHS);
+                        break;
+                    }
             }
 
             return result;

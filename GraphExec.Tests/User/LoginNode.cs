@@ -6,9 +6,9 @@ namespace GraphExec.Tests.User
     {
         public LoginNode(LoginInfo info)
         {
-            this.Head = null;
             this.Parent = null;
-            this.Child = null;
+            this.Left = null;
+            this.Right = null;
 
             this.PermissionCheck = new AnonymousPermissionCheck();
 

@@ -8,20 +8,16 @@ namespace GraphExec
         where TCheckResult : PermissionCheckResult, new()
         where TCheck : BasePermissionCheck<TCheckResult>, new()
     {
-        protected BaseNode()
+        protected BaseNode() : base()
         {
-            this.InitializeScope();
-
-            this.EventAggregator.Sub(this);
-
-            this.EventAggregator.Pub(NodeExecutionState.Initialized);
+            this.InitializeBaseGraphExecNode();
         }
 
         public NodeExecutionState ExecutionState { get; private set; }
 
         public T Value { get; set; }
 
-        public INode Head { get; set; }
+        public INode Parent { get; set; }
 
         public TCheck PermissionCheck { get; set; }
 
@@ -53,37 +49,6 @@ namespace GraphExec
         public override void OnHandle(NodeExecutionState evt)
         {
             this.ExecutionState = evt;
-        }
-
-        private void InitializeScope()
-        {
-            this.ScopeLevel = EventLevel.Local;
-            this.ScopeManager.BeginScope(this);
-        }
-
-        [ThrowsException]
-        private void SetSecurity(TCheckResult result)
-        {
-            var security = IoC.Container.Resolve<SecurityCore>();
-            if (!security.Check(this.Name))
-            {
-                security.RecordCheck(this.Name, result);
-            }
-        }
-
-        [ThrowsException]
-        private TCheckResult SetCheckResult()
-        {
-            var check = this.PermissionCheck.GetBehavior();
-
-            TCheckResult result = null;
-
-            if (check != null)
-            {
-                result = check();
-            }
-
-            return result;
         }
 
         [ThrowsException]
@@ -127,16 +92,63 @@ namespace GraphExec
 
                 if (result.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
-
-                        this.Head.Execute();
-                    }
+                    this.ExecuteParent();
                 }
 
                 this.EventAggregator.Pub(NodeExecutionState.Executed);
             }
+        }
+
+        protected void ExecuteParent()
+        {
+            if (this.Parent != null)
+            {
+                this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
+
+                this.Parent.Execute();
+            }
+        }
+
+        protected void InitializeScope()
+        {
+            this.ScopeLevel = EventLevel.Local;
+            this.ScopeManager.BeginScope(this);
+        }
+
+        private void InitializeBaseGraphExecNode()
+        {
+            this.PermissionCheck = new TCheck();
+
+            this.InitializeScope();
+
+            this.EventAggregator.Sub(this);
+
+            this.EventAggregator.Pub(NodeExecutionState.Initialized);
+        }
+
+        [ThrowsException]
+        private void SetSecurity(TCheckResult result)
+        {
+            var security = IoC.Container.Resolve<SecurityCore>();
+            if (!security.Check(this.Name))
+            {
+                security.RecordCheck(this.Name, result);
+            }
+        }
+
+        [ThrowsException]
+        private TCheckResult SetCheckResult()
+        {
+            var check = this.PermissionCheck.GetBehavior();
+
+            TCheckResult result = null;
+
+            if (check != null)
+            {
+                result = check();
+            }
+
+            return result;
         }
     }
 
@@ -145,6 +157,12 @@ namespace GraphExec
         where TCheck : BasePermissionCheck<TCheckResult>, new()
         where TNodeInfo : BaseNodeInfo, new()
     {
+        public BaseNode()
+            : base()
+        {
+            this.Info = new TNodeInfo();
+        }
+
         public TNodeInfo Info { get; set; }
     }
 

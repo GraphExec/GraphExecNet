@@ -6,9 +6,9 @@ namespace GraphExec
         where TCheckResult : PermissionCheckResult, new()
         where TCheck : BasePermissionCheck<TCheckResult>, new()
     {
-        public INode Parent { get; set; }
+        public INode Left { get; set; }
 
-        public INode Child { get; set; }
+        public INode Right { get; set; }
 
         protected override void ExecuteCore()
         {
@@ -20,29 +20,34 @@ namespace GraphExec
 
                 if (result.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
-                    }
+                    this.ExecuteRight();
                 }
 
                 this.EventAggregator.Pub(NodeExecutionState.Executed);
+            }
+        }
+
+        protected virtual void ExecuteLeft()
+        {
+            if (this.Left != null)
+            {
+                this.EventAggregator.Pub(NodeExecutionState.ExecutingLeft);
+
+                this.Left.Execute();
+            }
+        }
+
+        protected virtual void ExecuteRight()
+        {
+            if (this.Right != null)
+            {
+                this.EventAggregator.Pub(NodeExecutionState.ExecutingRight);
+
+                this.Right.Execute();
             }
         }
     }
@@ -52,9 +57,9 @@ namespace GraphExec
         where TCheck : BasePermissionCheck<TCheckResult>, new()
         where TNodeInfo : BaseNodeInfo, new()
     {
-        public INode Parent { get; set; }
+        public INode Left { get; set; }
 
-        public INode Child { get; set; }
+        public INode Right { get; set; }
 
         protected override void ExecuteCore()
         {
@@ -66,29 +71,34 @@ namespace GraphExec
 
                 if (result.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
-                    }
+                    this.ExecuteRight();
                 }
 
                 this.EventAggregator.Pub(NodeExecutionState.Executed);
+            }
+        }
+
+        protected virtual void ExecuteLeft()
+        {
+            if (this.Left != null)
+            {
+                this.EventAggregator.Pub(NodeExecutionState.ExecutingLeft);
+
+                this.Left.Execute();
+            }
+        }
+
+        protected virtual void ExecuteRight()
+        {
+            if (this.Right != null)
+            {
+                this.EventAggregator.Pub(NodeExecutionState.ExecutingRight);
+
+                this.Right.Execute();
             }
         }
     }

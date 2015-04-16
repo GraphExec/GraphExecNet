@@ -19,31 +19,16 @@ namespace GraphExec
 
                 if (checkResult.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
+                    this.ExecuteRight();
 
                     this.EventAggregator.Pub(NodeExecutionState.ExecutingGetData);
 
                     var data = this.Provider.GetData();
                     this.Value = data;
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
-                    }
                 }
 
                 this.EventAggregator.Pub(NodeExecutionState.Executed);
@@ -57,6 +42,12 @@ namespace GraphExec
         where TProviderInfo : BaseProviderInfo, new()
         where TProvider : BaseDataProvider<TData, TProviderInfo>
     {
+        public BaseDataNode()
+            : base()
+        {
+            this.ProviderInfo = new TProviderInfo();
+        }
+
         public TProviderInfo ProviderInfo { get; set; }
 
         public TProvider Provider { get; set; }
@@ -71,31 +62,16 @@ namespace GraphExec
 
                 if (checkResult.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
+                    this.ExecuteRight();
 
                     this.EventAggregator.Pub(NodeExecutionState.ExecutingGetData);
 
                     var data = this.Provider.GetData(this.ProviderInfo);
                     this.Value = data;
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
-                    }
                 }
 
                 this.EventAggregator.Pub(NodeExecutionState.Executed);
@@ -110,6 +86,12 @@ namespace GraphExec
         where TNodeInfo : BaseNodeInfo, new()
         where TProvider : BaseDataProvider<TData, TProviderInfo>
     {
+        public BaseDataNode()
+            : base()
+        {
+            this.ProviderInfo = new TProviderInfo();
+        }
+
         public TProviderInfo ProviderInfo { get; set; }
 
         public TProvider Provider { get; set; }
@@ -124,31 +106,16 @@ namespace GraphExec
 
                 if (checkResult.AllowAction)
                 {
-                    if (this.Head != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingHead);
+                    this.ExecuteParent();
 
-                        this.Head.Execute();
-                    }
+                    this.ExecuteLeft();
 
-                    if (this.Parent != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingParent);
-
-                        this.Parent.Execute();
-                    }
+                    this.ExecuteRight();
 
                     this.EventAggregator.Pub(NodeExecutionState.ExecutingGetData);
 
                     var data = this.Provider.GetData(this.ProviderInfo);
                     this.Value = data;
-
-                    if (this.Child != null)
-                    {
-                        this.EventAggregator.Pub(NodeExecutionState.ExecutingChild);
-
-                        this.Child.Execute();
-                    }
                 }
 
                 this.EventAggregator.Pub(NodeExecutionState.Executed);

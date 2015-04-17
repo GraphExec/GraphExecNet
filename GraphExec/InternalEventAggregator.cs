@@ -85,7 +85,7 @@ namespace GraphExec
                 return;
             }
 
-            var scopedSubscribers = this.GetScopedSubscribers<TEventType>();
+            var scopedSubscribers = this.GetScopedSubscribers<TEventType>().ToList();
             Vars.HandleNull(scopedSubscribers, this.HandleNull);
 
             if (!scopedSubscribers.Any())

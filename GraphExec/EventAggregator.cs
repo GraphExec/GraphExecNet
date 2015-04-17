@@ -12,6 +12,8 @@ namespace GraphExec
         public EventAggregator()
         {
             this.m_aggregator = new InternalEventAggregator();
+
+            this.CurrentScope = this;
         }
 
         private InternalEventAggregator m_aggregator;

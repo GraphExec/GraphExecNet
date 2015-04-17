@@ -53,6 +53,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ArgsTest.cs" />
+    <Compile Include="Event\EventHandler.cs" />
+    <Compile Include="Event\EventTypeInfo.cs" />
+    <Compile Include="Event\ScopedEventHandler.cs" />
     <Compile Include="MathTest.cs" />
     <Compile Include="Framework\BaseTestClass.cs" />
     <Compile Include="Math\AddOperationInfo.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Math\NumberTwoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThrowTest.cs" />
+    <Compile Include="EventAggregatorTest.cs" />
     <Compile Include="UserTest.cs" />
     <Compile Include="User\LoginInfo.cs" />
     <Compile Include="User\LoginNode.cs" />

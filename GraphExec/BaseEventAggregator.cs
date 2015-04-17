@@ -42,9 +42,13 @@ namespace GraphExec
         protected void CleanUpRegistry()
         {
             var removeable = this.m_eventRegistry.Where(x => x.Value == null || !x.Value.Any());
-            foreach (var item in removeable)
+            for (var i = 0; i < removeable.Count(); i++)
             {
-                this.m_eventRegistry.Remove(item.Key);
+                var item = removeable.ElementAt(i);
+                if (this.m_eventRegistry.ContainsKey(item.Key))
+                {
+                    this.m_eventRegistry.Remove(item.Key);
+                }
             }
         }
 

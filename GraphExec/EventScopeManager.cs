@@ -9,7 +9,7 @@ namespace GraphExec
     /// <summary>
     /// Provides basic event scope management
     /// </summary>
-    public class EventScopeManager : IEventScopeManager
+    public class EventScopeManager : EventScope, IEventScopeManager
     {
         /// <summary>
         /// Gets the scope level of the current scope
